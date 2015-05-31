@@ -1,13 +1,12 @@
 import numpy as np
-from random import random, randint
+from random import random, randint, uniform
 from sklearn import cross_validation
 from sklearn import svm
 from sklearn import datasets
 from bitstring import BitArray
 
-max_gen 	= 1
-pop_size 	= 3
-p_cross 	= 0.9
+max_gen 	= 20
+pop_size 	= 10
 p_mutation 	= 0.05
 mutation_f	= 0.1
 
@@ -15,7 +14,7 @@ def main():
 	
 	gen = 1
 	
-	#inicializar população
+	#inicializar populacao
 	population = initializePopulation()
 	print(population)
 
@@ -23,11 +22,11 @@ def main():
 	while True:
 
 		fitness = evaluatePopulation(population)
-		#newPopulation = selectNextPopulation(population, fitness)
-		#crossover(newPopulation)
-		mutation(population)
+		parents = selectNextPopulation(population, fitness)
+		newpopulation = crossover(parents)
+		mutation(newpopulation)
 	
-		#population = newPopulation
+		population = newpopulation
 	
 		gen += 1
 		
@@ -61,10 +60,58 @@ def evaluatePopulation(population):
 		
 	return fitness
 	
-#def selectNextPopulation():
+def selectNextPopulation(population, fitness):
+	
+	ranked = rank(fitness)
+	sumfit = 0
+	
+	for i in range(pop_size):
+		sumfit += ranked[i]
+				
+	parents = np.ones((pop_size, 2))
+	
+	for i in range(pop_size):
+		k = uniform(0.0, sumfit)
+		aux = 0.0
+		for j in range(pop_size):
+			aux += ranked[j]
+			if k < aux:
+				parents[i] = population[j]
+				break
+			
+	return parents
+	
+def rank(fitness):
+	
+	newfitness = sorted(fitness)
+	rankedfitness = np.zeros((pop_size))
+	
+	for i in range(pop_size):
+		rankedfitness[i] = 100 * (newfitness[0] + (newfitness[-1] - newfitness[0]) * (fitness[i] - 1) / (pop_size - 1))
+		
+	return rankedfitness
 
-#def crossover(population):	
-
+def crossover(parents):
+	newpopulation = np.zeros((pop_size, 2))
+	k = 0
+	
+	for i in range(int(pop_size/2)):
+		
+		a11, a12 = parents[k]
+		a21, a22 = parents[k+1]
+		
+		c11 = uniform(a11, a21)
+		c12 = uniform(a12, a22)
+		c21 = uniform(a11, a21)
+		c22 = uniform(a12, a22)
+		
+		newpopulation[k] = [c11, c21]
+		newpopulation[k+1] = [c12, c22]
+		
+		k += 2
+		
+	return newpopulation
+		
 def mutation(population):
 
 	for i in range(pop_size):
