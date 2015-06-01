@@ -32,8 +32,9 @@ header = dict()
 
 x_output_path = "normalized_X.pkl"
 y_output_path = "normalized_Y.pkl"
-base_dir = "../uci/original"
-out_dir = "../uci/normalized"
+original_dir = "../uci/original"
+numerical_dir = "../uci/numerical"
+normalized_dir = "../uci/normalized"
 meta_data_path = "meta_data.csv"
 meta_data_lines = []
 
@@ -235,7 +236,7 @@ meta_data_lines.append("name,#numerical_features,#categorical_features,#samples"
 for name in names:
 	print("Dataset: %s\nNumerical features:%d\nCategorical features:%d" % (name, len(numerical_features[name]), len(categorical_features[name])))
 
-	path = os.path.join(base_dir, name)
+	path = os.path.join(original_dir, name)
 	
 
 	if len(numerical_features[name]) > 0:
@@ -283,11 +284,13 @@ for name in names:
 	elif len(numerical_features[name]) > 0 and len(categorical_features[name]) == 0:
 		features = numerical
 
+	np.savetxt(os.path.join(numerical_dir, "X_" + name + ".csv"), features, delimiter=",")
+
 	# normalize features
 	min_max_scaler = preprocessing.MinMaxScaler((-1,1))
 	features = min_max_scaler.fit_transform(features)
 	normalized_features[name] = features
-	np.savetxt(os.path.join(out_dir, "X_" + name + ".csv"), features, delimiter=",")
+	np.savetxt(os.path.join(normalized_dir, "X_" + name + ".csv"), features, delimiter=",")
 
 	# read classes
 	classified = np.genfromtxt(path, dtype=np.unicode, usecols=classes[name],delimiter=delimiters[name],skip_header=header[name])
@@ -297,8 +300,9 @@ for name in names:
 	numbered_classes = le.fit_transform(classified)
 	
 	# classes didn't need to be transposed
-	normalized_classes[name] = numbered_classes.reshape( (numbered_classes.shape[0]) )
-	np.savetxt(os.path.join(out_dir, "Y_" + name + ".csv"), normalized_classes[name], delimiter=",")
+	normalized_classes[name] = numbered_classes
+	np.savetxt(os.path.join(normalized_dir, "Y_" + name + ".csv"), numbered_classes, delimiter=",")
+	np.savetxt(os.path.join(numerical_dir, "Y_" + name + ".csv"), numbered_classes, delimiter=",")
 
 	print("Samples: %d\n" % len(normalized_classes[name]))
 	meta_data_lines.append("%s,%d,%d,%d" % (name, len(numerical_features[name]), len(categorical_features[name]),len(normalized_classes[name])))
