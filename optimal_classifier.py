@@ -16,6 +16,7 @@ y_input_path = "normalized_Y.pkl"
 probe_prefix = "PROBE_"
 ap = argparse.ArgumentParser()
 ap.add_argument('-p', action='store_true')
+ap.add_argument('--singlecore', action='store_true')
 args = ap.parse_args()
 
 if (args.p):
@@ -46,8 +47,12 @@ with open(x_input_path, 'rb') as f:
 with open(y_input_path, 'rb') as f:
     y_all = pickle.load(f)
 
-num_cores = multiprocessing.cpu_count()
-results = Parallel(n_jobs=4)(delayed(optimal_training)(dataset,X_all[dataset], y_all[dataset]) for dataset in X_all.keys())
+if not args.singlecore:
+    num_cores = multiprocessing.cpu_count()
+    results = Parallel(n_jobs=4)(delayed(optimal_training)(dataset,X_all[dataset], y_all[dataset]) for dataset in X_all.keys())
+else:
+    for dataset in X_all.keys():
+        optimal_training(dataset,X_all[dataset], y_all[dataset])
 
 with open(output_path, "w") as output_file:
     output_file.write("dataset_name,gamma,C,accuracy\n")
