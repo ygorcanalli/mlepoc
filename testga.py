@@ -63,11 +63,12 @@ def evaluatePopulation(population):
 def selectNextPopulation(population, fitness):
 	
 	ranked = rank(fitness)
-	sumfit = 0
-	
+	sumfit = np.sum(ranked)
+
+	'''
 	for i in range(pop_size):
 		sumfit += ranked[i]
-				
+	'''			
 	parents = np.ones((pop_size, 2))
 	
 	for i in range(pop_size):

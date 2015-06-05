@@ -45,11 +45,11 @@ classes['abalone.data'] = [8]
 delimiters['abalone.data'] = ","
 header['abalone.data'] = 0
 
-numerical_features['Amazon_initial_50_30_10000.arff'] = [x for x in range(0,10000)]
-categorical_features['Amazon_initial_50_30_10000.arff'] = []
-classes['Amazon_initial_50_30_10000.arff'] = [10000]
-delimiters['Amazon_initial_50_30_10000.arff'] = ","
-header['Amazon_initial_50_30_10000.arff'] = 10005
+numerical_features['agaricus-lepiota.data'] = []
+categorical_features['agaricus-lepiota.data'] = [x for x in range(1,22)]
+classes['agaricus-lepiota.data'] = [0]
+delimiters['agaricus-lepiota.data'] = ","
+header['agaricus-lepiota.data'] = 0
 
 numerical_features['anneal.data'] = [3,4,7,8,12,32,33,34,37]
 categorical_features['anneal.data'] = [0,1,2,5,6,9,10,11] + [x for x in range(13,32)] + [35,36]
@@ -103,17 +103,11 @@ classes['CNAE-9.data'] = [0]
 delimiters['CNAE-9.data'] = ","
 header['CNAE-9.data'] = 0
 
-numerical_features['connect-4.data'] = []
-categorical_features['connect-4.data'] = [x for x in range(0,42)]
-classes['connect-4.data'] = [42]
-delimiters['connect-4.data'] = ","
-header['connect-4.data'] = 0
-
-numerical_features['covtype.data'] = [x for x in range(0,10)]
-categorical_features['covtype.data'] = [10,11]
-classes['covtype.data'] = [12]
-delimiters['covtype.data'] = ","
-header['covtype.data'] = 0
+numerical_features['hayes-roth.data'] = []
+categorical_features['hayes-roth.data'] = [x for x in range(0,4)]
+classes['hayes-roth.data'] = [4]
+delimiters['hayes-roth.data'] = ","
+header['hayes-roth.data'] = 0
 
 numerical_features['dermatology.data'] = [x for x in range(0,10)] + [x for x in range(11,34)]
 categorical_features['dermatology.data'] = [10]
@@ -178,12 +172,11 @@ classes['krkopt.data'] = [6]
 delimiters['krkopt.data'] = ","
 header['krkopt.data'] = 0
 
-numerical_features['lung-cancer.data'] = []
-categorical_features['lung-cancer.data'] = [x for x in range(1,57)]
-classes['lung-cancer.data'] = [0]
-delimiters['lung-cancer.data'] = ","
-missing['lung-cancer.data'] = "?"
-header['lung-cancer.data'] = 0
+numerical_features['winequality-all.csv'] = [x for x in range(1,12)]
+categorical_features['winequality-all.csv'] = [0]
+classes['winequality-all.csv'] = [12]
+delimiters['winequality-all.csv'] = ";"
+header['winequality-all.csv'] = 1
 
 numerical_features['mammographic_masses.data'] = [0,1,4]
 categorical_features['mammographic_masses.data'] = [2,3]
@@ -198,18 +191,12 @@ classes['pop_failures.dat'] = [20]
 delimiters['pop_failures.dat'] = None
 header['pop_failures.dat'] = 1
 
+
 numerical_features['tictactoe.data'] = []
 categorical_features['tictactoe.data'] = [x for x in range(0,9)]
 classes['tictactoe.data'] = [9]
 delimiters['tictactoe.data'] = ","
 header['tictactoe.data'] = 0
-
-numerical_features['trains.data'] = [0,1,2,5,7,10,12,15,17,20]
-categorical_features['trains.data'] = [3,4,6,8,9,11,13,14,16,18,19,21] + [x for x in range(22,32)]
-classes['trains.data'] = [32]
-delimiters['trains.data'] = " "
-missing['trains.data'] = "-"
-header['trains.data'] = 0
 
 numerical_features['transfusion.data'] = [0,1,2,3]
 categorical_features['transfusion.data'] = []
@@ -223,6 +210,18 @@ classes['wine.data'] = [0]
 delimiters['wine.data'] = ","
 header['wine.data'] = 0
 
+numerical_features['wilt.csv'] = [x for x in range(1,6)]
+categorical_features['wilt.csv'] = []
+classes['wilt.csv'] = [0]
+delimiters['wilt.csv'] = ","
+header['wilt.csv'] = 1
+
+numerical_features['yeast.data'] = [x for x in range(1,9)]
+categorical_features['yeast.data'] = []
+classes['yeast.data'] = [9]
+delimiters['yeast.data'] = None
+header['yeast.data'] = 0
+
 numerical_features['zoo.data'] = [13]
 categorical_features['zoo.data'] = [x for x in range(1,13)] + [x for x in range(14,17)]
 classes['zoo.data'] = [17]
@@ -230,7 +229,7 @@ delimiters['zoo.data'] = ","
 header['zoo.data'] = 0
 
 
-names = ['abalone.data', 'Amazon_initial_50_30_10000.arff', 'anneal.data', 'arrhythmia.data', 'audiology.standardized.data', 'bridges.data.version1', 'bridges.data.version2', 'car.data', 'cmc.data', 'CNAE-9.data', 'connect-4.data', 'covtype.data', 'dermatology.data', 'ecoli.data', 'fertility_Diagnosis.txt', 'flag.data', 'glass.data', 'hepatitis.data', 'house-votes-84.data', 'ionosphere.data', 'iris.data', 'krkopt.data', 'lung-cancer.data', 'mammographic_masses.data', 'pop_failures.dat', 'tictactoe.data', 'trains.data', 'transfusion.data', 'wine.data', 'zoo.data']
+names = ['abalone.data', 'agaricus-lepiota.data',  'anneal.data', 'arrhythmia.data', 'audiology.standardized.data', 'bridges.data.version1', 'bridges.data.version2', 'car.data', 'cmc.data', 'CNAE-9.data', 'hayes-roth.data', 'dermatology.data', 'ecoli.data', 'fertility_Diagnosis.txt', 'flag.data', 'glass.data', 'hepatitis.data', 'house-votes-84.data', 'ionosphere.data', 'iris.data', 'krkopt.data', 'winequality-all.csv', 'mammographic_masses.data', 'pop_failures.dat', 'tictactoe.data', 'yeast.data', 'transfusion.data', 'wilt.csv','wine.data', 'zoo.data']
 
 meta_data_lines.append("name,#numerical_features,#categorical_features,#samples")
 for name in names:

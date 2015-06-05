@@ -1,6 +1,6 @@
 import pickle
 
-probe_names = ['ecoli.data', 'flag.data', 'glass.data','wine.data', 'zoo.data']
+probe_names = ['agaricus-lepiota.data']
 x_input_path = "normalized_X.pkl"
 y_input_path = "normalized_Y.pkl"
 probe_prefix = "PROBE_"

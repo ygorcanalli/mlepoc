@@ -1,6 +1,6 @@
 name,#numerical_features,#categorical_features,#samples
 abalone.data,7,1,4177
-Amazon_initial_50_30_10000.arff,10000,0,1500
+agaricus-lepiota.data,0,21,8124
 anneal.data,9,29,798
 arrhythmia.data,206,73,452
 audiology.standardized.data,0,69,200
@@ -9,8 +9,7 @@ bridges.data.version2,2,9,108
 car.data,0,6,1728
 cmc.data,2,7,1473
 CNAE-9.data,856,0,1080
-connect-4.data,0,42,67557
-covtype.data,10,2,581012
+hayes-roth.data,0,4,160
 dermatology.data,33,1,366
 ecoli.data,7,0,336
 fertility_Diagnosis.txt,4,5,100
@@ -21,11 +20,12 @@ house-votes-84.data,0,28,435
 ionosphere.data,34,0,351
 iris.data,4,0,150
 krkopt.data,3,3,28056
-lung-cancer.data,0,56,32
+winequality-all.csv,11,1,6497
 mammographic_masses.data,3,2,961
 pop_failures.dat,18,0,540
 tictactoe.data,0,9,958
-trains.data,10,22,10
+yeast.data,8,0,1484
 transfusion.data,4,0,748
+wilt.csv,5,0,500
 wine.data,12,0,178
 zoo.data,1,15,101
