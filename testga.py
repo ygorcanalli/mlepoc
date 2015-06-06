@@ -6,7 +6,7 @@ from sklearn import svm
 from sklearn import datasets
 from bitstring import BitArray
 
-def run(X, y, theta, max_gen = 100, pop_size = 10, p_cross = 0.9, p_mutation = 0.05, mutation_f = 0.1):
+def run(X, y, theta, elite = 10, max_gen = 1, pop_size = 10, p_cross = 0.9, p_mutation = 0.05, mutation_f = 0.1):
 
 	gen = 1
 
@@ -16,8 +16,8 @@ def run(X, y, theta, max_gen = 100, pop_size = 10, p_cross = 0.9, p_mutation = 0
 	#criterio de parada
 	while True:
 		
-		fitness = evaluatePopulation(X, y, pop_size, population)
-		parents = selectNextPopulation(population, pop_size, fitness)
+		k, fitness = evaluatePopulation(X, y, pop_size, population)
+		parents = selectNextPopulation(population, pop_size, fitness, elite, k)
 		newpopulation = crossover(parents, pop_size, p_cross)
 		mutation(newpopulation, pop_size, p_mutation, mutation_f)
 	
@@ -29,7 +29,10 @@ def run(X, y, theta, max_gen = 100, pop_size = 10, p_cross = 0.9, p_mutation = 0
 		
 			break
 
-	print(population)
+	k, fitness = evaluatePopulation(X, y, pop_size, population)
+	index = np.argmax(fitness)
+	
+	return population[index]
 	
 def initializePopulation(theta):
 	
@@ -58,21 +61,33 @@ def evaluatePopulation(X, y, pop_size, population):
 			
 		fitness[i] = np.average(kfitness)
 		
-	return fitness
+	return np.argmax(fitness), fitness
 	
-def selectNextPopulation(population, pop_size, fitness):
+def selectNextPopulation(population, pop_size, fitness, elite, k):
 	
 	ranked = rank(fitness, pop_size)
 	sumfit = np.sum(ranked)
 		
-	parents = np.ones((pop_size, 2))
+	parents = np.ones((pop_size * 2, 2))
 	
-	for i in range(pop_size):
-		k = uniform(0.0, sumfit)
+	if(elite):
+		parents[0] = population[k]
+		parents[1] = population[k]
+	else:
+		value = uniform(0.0, sumfit)
 		aux = 0.0
 		for j in range(pop_size):
 			aux += ranked[j]
-			if k < aux:
+			if value < aux:
+				parents[i] = population[j]
+				break
+	
+	for i in range(2, (pop_size)*2):
+		value = uniform(0.0, sumfit)
+		aux = 0.0
+		for j in range(pop_size):
+			aux += ranked[j]
+			if value < aux:
 				parents[i] = population[j]
 				break
 			
@@ -92,19 +107,25 @@ def crossover(parents, pop_size, p_cross):
 	newpopulation = np.zeros((pop_size, 2))
 	k = 0
 	
-	for i in range(int(pop_size/2)):
+	for i in range(pop_size):
 		
-		a11, a12 = parents[k]
-		a21, a22 = parents[k+1]
+		value = random()
 		
-		c11 = uniform(a11, a21)
-		c12 = uniform(a12, a22)
-		c21 = uniform(a11, a21)
-		c22 = uniform(a12, a22)
+		if value <= p_cross:
 		
-		newpopulation[k] = [c11, c21]
-		newpopulation[k+1] = [c12, c22]
+			a11, a12 = parents[k]
+			a21, a22 = parents[k+1]
+			
+			c1 = uniform(a11, a21)
+			c2 = uniform(a12, a22)
+			
+			newpopulation[i] = [c1, c2]
+
+		else:
 		
+			ind = randint(k, k+1)
+			newpopulation[i] = parents[ind]
+			
 		k += 2
 		
 	return newpopulation
