@@ -6,7 +6,7 @@ from sklearn import svm
 from sklearn import datasets
 from bitstring import BitArray
 
-def run(X, y, theta, elite = 10, max_gen = 1, pop_size = 10, p_cross = 0.9, p_mutation = 0.05, mutation_f = 0.1):
+def run(X, y, theta, elite = 1, max_gen = 100, pop_size = 10, p_cross = 0.9, p_mutation = 0.05, mutation_f = 0.1):
 
 	gen = 1
 
