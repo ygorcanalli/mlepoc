@@ -232,7 +232,7 @@ header['zoo.data'] = 0
 names = ['abalone.data', 'agaricus-lepiota.data',  'anneal.data', 'arrhythmia.data', 'audiology.standardized.data', 'bridges.data.version1', 'bridges.data.version2', 'car.data', 'cmc.data', 'CNAE-9.data', 'hayes-roth.data', 'dermatology.data', 'ecoli.data', 'fertility_Diagnosis.txt', 'flag.data', 'glass.data', 'hepatitis.data', 'house-votes-84.data', 'ionosphere.data', 'iris.data', 'krkopt.data', 'winequality-all.csv', 'mammographic_masses.data', 'pop_failures.dat', 'tictactoe.data', 'yeast.data', 'transfusion.data', 'wilt.csv','wine.data', 'zoo.data']
 
 meta_data_lines.append("name,#numerical_features,#categorical_features,#samples")
-for name in names:
+for name in sorted(names):
 	print("Dataset: %s\nNumerical features:%d\nCategorical features:%d" % (name, len(numerical_features[name]), len(categorical_features[name])))
 
 	path = os.path.join(original_dir, name)
