@@ -86,14 +86,13 @@ def selectNextPopulation(population, pop_size, fitness, elite, k):
 		parents[0] = population[k]
 		parents[1] = population[k]
 	else:
-		for i in range(2):
-			value = uniform(0.0, sumfit)
-			aux = 0.0
-			for j in range(pop_size):
-				aux += ranked[j]
-				if value < aux:
-					parents[i] = population[j]
-					break
+		value = uniform(0.0, sumfit)
+		aux = 0.0
+		for j in range(pop_size):
+			aux += ranked[j]
+			if value < aux:
+				parents[i] = population[j]
+				break
 	
 	for i in range(2, (pop_size)*2):
 		value = uniform(0.0, sumfit)
