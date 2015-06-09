@@ -6,13 +6,17 @@ from sklearn import svm
 from sklearn import datasets
 from bitstring import BitArray
 
-def run(X, y, theta, elite = 1, max_gen = 100, pop_size = 10, p_cross = 0.9, p_mutation = 0.05, mutation_f = 0.1):
+def run(X, y, theta, elite = 1, max_gen = 100, pop_size = 10, p_cross = 0.9, p_mutation = 0.05, mutation_f = 0.1, stop_criteria = 20):
 
 	gen = 1
 
+	bestIndividual = np.zeros((len(theta)))
+	bestFit = 0
+	counter = 0
+
 	#inicializar populacao
 	population = initializePopulation(theta)
-	
+
 	#criterio de parada
 	while True:
 		
@@ -22,17 +26,25 @@ def run(X, y, theta, elite = 1, max_gen = 100, pop_size = 10, p_cross = 0.9, p_m
 		mutation(newpopulation, pop_size, p_mutation, mutation_f)
 	
 		population = newpopulation
-	
-		gen += 1
 		
-		if gen >= max_gen:
+		cIndex = np.argmax(fitness)
+	
+		if(fitness[cIndex] > bestFit):
+			bestFit = fitness[cIndex]
+			bestIndividual = population[cIndex]
+			counter = 0
+
+		gen += 1
+		counter += 1
+		
+		if (gen >= max_gen or counter > stop_criteria):
 		
 			break
 
 	k, fitness = evaluatePopulation(X, y, pop_size, population)
 	index = np.argmax(fitness)
 	
-	return population[index]
+	return population[index], fitness[index]
 	
 def initializePopulation(theta):
 	
@@ -55,7 +67,7 @@ def evaluatePopulation(X, y, pop_size, population):
 		
 			X_train, X_test, y_train, y_test = X[train], X[test], y[train], y[test]
 		
-			clf = svm.SVC(C=population[i][0], gamma=population[i][1]).fit(X_train, y_train)
+			clf = svm.SVC(C=population[i][1], gamma=population[i][0]).fit(X_train, y_train)
 			kfitness[j] = clf.score(X_test, y_test)
 			j = j + 1
 			
