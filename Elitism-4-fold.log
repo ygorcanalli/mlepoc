@@ -1,0 +1,45 @@
+Elitism
+Knowlodge base size: 25
+Selecting meta features...
+Selected features: (7, 9)
+wilt.csv
+Optimal parameters: [  2.97804508  42.17041345]
+Accuracy: 0.822000
+wine.data
+Optimal parameters: [  0.03609177  11.5058886 ]
+Accuracy: 0.752146
+winequality-all.csv
+Optimal parameters: [  1.75781250e-03   2.56000000e+02]
+Accuracy: 0.510246
+yeast.data
+Optimal parameters: [  1.49556361e-01   1.51071423e+02]
+Accuracy: 0.588275
+zoo.data
+Optimal parameters: [  3.90625000e-03   2.56000000e+02]
+Accuracy: 0.940000
+Duration: 00:17:57
+Elitism
+Knowlodge base size: 25
+Selecting meta features...
+Selected features: (7, 9)
+wilt.csv
+Num generations: 11
+Optimal parameters: [  0.96185084  37.5402178 ]
+Accuracy: 0.808000
+wine.data
+Num generations: 11
+Optimal parameters: [  2.94964607e-02   6.55385477e+02]
+Accuracy: 0.746591
+winequality-all.csv
+Num generations: 11
+Optimal parameters: [  1.75781250e-03   2.56000000e+02]
+Accuracy: 0.510246
+yeast.data
+Num generations: 11
+Optimal parameters: [  1.07332724e-01   4.37403142e+02]
+Accuracy: 0.585580
+zoo.data
+Num generations: 11
+Optimal parameters: [  3.90625000e-03   2.56000000e+02]
+Accuracy: 0.940000
+Duration: 00:18:56

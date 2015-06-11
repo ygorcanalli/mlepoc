@@ -1,0 +1,20 @@
+Elitism
+Knowlodge base size: 25
+Selecting meta features...
+Selected features: (7, 9)
+wilt.csv
+Optimal parameters: [  2.34453066  65.87999049]
+Accuracy: 0.854000
+wine.data
+Optimal parameters: [  3.04501955e-02   1.82326015e+02]
+Accuracy: 0.944444
+winequality-all.csv
+Optimal parameters: [  7.81828063e-02   6.96793319e+02]
+Accuracy: 0.528565
+yeast.data
+Optimal parameters: [  7.00626836e-02   4.23272998e+02]
+Accuracy: 0.584804
+zoo.data
+Optimal parameters: [  3.90625000e-03   2.56000000e+02]
+Accuracy: 0.960000
+Duration: 08:45:51
