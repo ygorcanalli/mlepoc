@@ -1,6 +1,6 @@
 from __future__ import print_function
 import argparse
-
+import time
 from sklearn import datasets
 from sklearn.cross_validation import train_test_split
 from sklearn.grid_search import GridSearchCV
@@ -51,12 +51,18 @@ with open(x_input_path, 'rb') as f:
 with open(y_input_path, 'rb') as f:
     y_all = pickle.load(f)
 
+ini = time.time()
+
 if not args.singlecore:
     num_cores = multiprocessing.cpu_count()
     results = Parallel(n_jobs=4)(delayed(optimal_training)(dataset,X_all[dataset], y_all[dataset]) for dataset in X_all.keys())
 else:
     for dataset in X_all.keys():
         optimal_training(dataset,X_all[dataset], y_all[dataset])
+
+end = time.time()
+duration = time.strftime("%H:%M:%S", time.gmtime(end - ini))
+print("Duration: %s" % duration)
 
 with open(output_path, "w") as output_file:
     output_file.write("dataset_name,gamma,C,test_accuracy,training_accuracy\n")

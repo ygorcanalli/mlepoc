@@ -2,18 +2,21 @@ import time
 from itertools import chain, combinations
 from sklearn.neighbors import NearestNeighbors
 from sklearn.metrics.pairwise import euclidean_distances
+from joblib import Parallel, delayed  
+import multiprocessing
 import numpy as np
 from pprint import pprint
 import testga
 import pickle
 import argparse
 
-knowledge_base_initial_size = 28
+knowledge_base_initial_size = 25
 
 meta_data_path = 'meta_features.csv'
 meta_data_header_size = 1
 meta_data_delimiter = ','
 meta_data_used_cols = [x for x in range(1,13)]
+
 elitism = 0
 
 names_column = 0
@@ -24,7 +27,7 @@ y_input_path = "normalized_Y.pkl"
 X_all = None
 y_all = None
 
-optimal_parameters_path = 'optimal_parameters.csv'
+optimal_parameters_path = 'optimal_parameters_all.csv'
 optimal_parameters_header_size = 1
 optimal_parameters_delimiter = ','
 optimal_parameters_used_cols = [1,2]
@@ -83,7 +86,7 @@ meta_data = np.genfromtxt(meta_data_path, dtype=np.float, usecols=meta_data_used
 knowledge_base_max_size = meta_data.shape[0]
 
 names = np.genfromtxt(meta_data_path, dtype='U', usecols=names_column,delimiter=meta_data_delimiter,skip_header=meta_data_header_size)
-print(names)
+print("Knowlodge base size: %d" % knowledge_base_initial_size)
 
 optimal_parameters = np.genfromtxt(optimal_parameters_path, dtype=np.float, usecols=optimal_parameters_used_cols,delimiter=optimal_parameters_delimiter,skip_header=optimal_parameters_header_size)
 
@@ -122,7 +125,7 @@ for ds in range(knowledge_base_initial_size, knowledge_base_max_size):
 
 	#genetic algorithm
 	optimal_parameters[ds,:], accuracy = testga.run(X, y, initial_population,  pop_size=len(initial_population), elite=elitism)
-	print(optimal_parameters[ds,:], " ", accuracy)
+	print("Optimal parameters: %s\nAccuracy: %f" % (str(optimal_parameters[ds,:]), accuracy) )
 
 	kb_size += 1
 
@@ -130,4 +133,4 @@ end = time.time()
 
 duration = time.strftime("%H:%M:%S", time.gmtime(end - ini))
 
-print(duration)
+print("Duration: %s" % duration)

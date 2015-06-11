@@ -6,7 +6,9 @@ from sklearn import svm
 from sklearn import datasets
 from bitstring import BitArray
 
-def run(X, y, theta, elite = 1, max_gen = 100, pop_size = 10, p_cross = 0.9, p_mutation = 0.05, mutation_f = 0.1, stop_criteria = 20):
+n_folds = 4
+
+def run(X, y, theta, elite = 1, max_gen = 100, pop_size = 10, p_cross = 0.9, p_mutation = 0.05, mutation_f = 0.1, stop_criteria = 10):
 
 	gen = 1
 
@@ -44,6 +46,7 @@ def run(X, y, theta, elite = 1, max_gen = 100, pop_size = 10, p_cross = 0.9, p_m
 	k, fitness = evaluatePopulation(X, y, pop_size, population)
 	index = np.argmax(fitness)
 	
+	print("Num generations: %d" % counter)
 	return population[index], fitness[index]
 	
 def initializePopulation(theta):
@@ -56,11 +59,11 @@ def evaluatePopulation(X, y, pop_size, population):
 
 	fitness = np.zeros((pop_size))
 	
-	kf = KFold(len(X), n_folds = 10)
+	kf = KFold(len(X), n_folds = n_folds)
 	
 	for i in range(pop_size):
 	
-		kfitness = np.zeros((10))
+		kfitness = np.zeros((n_folds))
 		j=0
 	
 		for train, test in kf:
