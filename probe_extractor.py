@@ -1,10 +1,6 @@
 import pickle
 
-probe_names = ['wilt.csv',
-'wine.data',
-'winequality-all.csv',
-'yeast.data',
-'zoo.data']
+probe_names = ['cmc.data']
 x_input_path = "normalized_X.pkl"
 y_input_path = "normalized_Y.pkl"
 probe_prefix = "PROBE_"

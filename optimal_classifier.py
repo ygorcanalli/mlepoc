@@ -6,6 +6,7 @@ from sklearn.cross_validation import train_test_split
 from sklearn.grid_search import GridSearchCV
 from sklearn.metrics import accuracy_score
 from sklearn.svm import SVC
+from numpy import logspace
 import pickle
 from joblib import Parallel, delayed  
 import multiprocessing
@@ -27,8 +28,10 @@ def optimal_training(dataset_name,X,y):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=0)
     # Set the parameters by cross-validation
     # rbf = radial basis function
-    tuned_parameters = [{'kernel': ['rbf'], 'gamma': [pow(2,x) for x in range(-10,5)], 'C': [pow(2,x) for x in range(-2,13)]}]
+    # tuned_parameters = [{'kernel': ['rbf'], 'gamma': [pow(2,x) for x in range(-10,5)], 'C': [pow(2,x) for x in range(-2,13)]}]
 
+    tuned_parameters = [{'kernel': ['rbf'], 'gamma': logspace(-15, 6, num=30, base=2), 'C': logspace(-3, 15, num=30, base=2)}]
+   
     clf = GridSearchCV(SVC(C=1), tuned_parameters, cv=10, scoring='accuracy')
     clf.fit(X_train, y_train)
 
@@ -55,7 +58,7 @@ ini = time.time()
 
 if not args.singlecore:
     num_cores = multiprocessing.cpu_count()
-    results = Parallel(n_jobs=4)(delayed(optimal_training)(dataset,X_all[dataset], y_all[dataset]) for dataset in X_all.keys())
+    results = Parallel(n_jobs=num_cores)(delayed(optimal_training)(dataset,X_all[dataset], y_all[dataset]) for dataset in X_all.keys())
 else:
     for dataset in X_all.keys():
         optimal_training(dataset,X_all[dataset], y_all[dataset])
